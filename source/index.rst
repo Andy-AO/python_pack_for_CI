@@ -3,7 +3,7 @@
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-Welcome to andy-tree's documentation!
+andy-tree 文档
 =====================================
 
 .. automodule:: tree
@@ -15,9 +15,8 @@ Welcome to andy-tree's documentation!
 
 
 
-Indices and tables
+索引
 ==================
 
 * :ref:`genindex`
 * :ref:`modindex`
-* :ref:`search`
