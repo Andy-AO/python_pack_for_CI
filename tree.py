@@ -114,20 +114,22 @@ class Node:
                     raise ValueError('circular reference.')
             self._parent_property = new_parent
             if old_parent:
-                old_parent.delete_child(self)
+                old_parent.__delete_child(self)
             if not (new_parent is None):
-                new_parent.add_child(self)
+                new_parent.__add_child(self)
 
-    def add_child(self, child_node):
+    def __add_child(self, child_node):
         """
-        当Node要设置父节点时，他不仅要自己更改自己的属性，也要更改父节点的Children，所以这个API是很必要的。
-        要注意的是这个调用 API 时，需要先检查对应的节点的 parent 是否正确，如果不正确的话是不予添加的。
-        所以添加 child 的唯一途径是用 set_parent 而不是用这个方法。
+        添加子节点
 
-        # TODO:这个API完全可以隐藏起来，不过隐藏之前先要搞清楚 Python 中如何调用private方法，最好是用个最被认可的方式来调用它。
+        当 Node 要设置父节点时，它不仅要自己更改自己的属性，也要更改父节点的 Children，所以这个API是很必要的。
 
-        Args: 
+        Args:
             child_node: 需要添加的对象
+        Warns:
+            确保 child_node 的 parent 是当前 node，否则会抛出 ValueError 异常。
+        Warns:
+            添加 child 的唯一途径是用 set_parent，那是「独家代理」。
         """
         if self.had_child(child_node):
             raise ValueError('child node repeat.')
@@ -136,23 +138,17 @@ class Node:
         else:
             self._children[child_node] = 1
 
-    def _get_children(self):
+    def __delete_child(self, child_node, raise_exception: bool = False):
         """
-        提供children的列表形式。
-        目前这个方法不会在外部用到，即使是Node对象也是如此。
-        如果要直接修改 children 不要使用这个方法，它直接提供 children 列表形式的副本而已。
+        删除子节点
 
-        Returns: 
-            children list
-        """
-        return list(self._children.keys())
+        当 Node 对象的 Parent 要发生更改时，除了其本身要更改之外，它现在的 Parent 的Children，也要同步的进行更改，这个方法是必要的。
 
-    def delete_child(self, child_node, raise_exception: bool = False):
-        """
-        当Node对象的Parent要发生更改时，除了其本身要更改之外，它现在的Parent的Children，也要同步的进行更改，所以提供这个API是必要的。
-        不能删除 child parent 为当前对象的 node。
-
-        Args: 
+        Raises:
+          确保 child_node 的 parent 不是当前 node，否则会抛出 ValueError 异常。
+        Warns:
+            删除 child 的唯一途径是用 set_parent，那是「独家代理」。
+        Args:
             child_node: 需要删除的对象
             raise_exception: 在对象不存在时是否抛出异常
         """
@@ -164,6 +160,17 @@ class Node:
             self._children.pop(child_node)
         elif raise_exception:
             raise ValueError('child Node is non-existent.')
+
+    def _get_children(self):
+        """
+        提供children的列表形式。
+        目前这个方法不会在外部用到，即使是Node对象也是如此。
+        如果要直接修改 children 不要使用这个方法，它直接提供 children 列表形式的副本而已。
+
+        Returns: 
+            children list
+        """
+        return list(self._children.keys())
 
     def had_child(self, child_node) -> bool:
         """

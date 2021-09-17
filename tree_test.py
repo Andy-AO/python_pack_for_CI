@@ -34,6 +34,7 @@ class TestNodeLink:
     """
     用来测试与节点之间的链接相关的内容，例如，parent的设置
     """
+
     @pytest.fixture(scope="class")
     def give_nodes(self, request):
         request.cls.node_1 = Node(1, 'title 1', 'content 1')
@@ -102,6 +103,7 @@ class TestNodeLink:
     @pytest.mark.usefixtures("give_nodes")
     class TestQueryChildIndex:
         """查询子节点的索引"""
+
         def test_none(self):
             """子节点不存在时的值是-1"""
             assert self.node_1.query_child_index(self.node_2) == -1
@@ -111,23 +113,9 @@ class TestNodeLink:
             assert self.node_1.query_child_index(self.node_2) == 0
 
     @pytest.mark.usefixtures("give_nodes")
-    class TestAddChild:
-        """add_child是内部API，无法自行使用"""
-        def test_cannot_be_used_alone(self):
-            with pytest.raises(ValueError):
-                self.node_2.add_child(self.node_3)
-
-    @pytest.mark.usefixtures("give_nodes")
-    class TestDeleteChild:
-        """delete_child是内部API，无法自行使用"""
-        def test_cannot_be_used_alone(self):
-            with pytest.raises(ValueError):
-                self.node_3.set_parent(self.node_2)
-                self.node_2.delete_child(self.node_3)
-
-    @pytest.mark.usefixtures("give_nodes")
     class TestHadChild:
         """检查节点是否拥有特定节点"""
+
         def test_had_child(self):
             self.node_1.set_parent(self.node_2)
             assert self.node_2.had_child(self.node_1)
