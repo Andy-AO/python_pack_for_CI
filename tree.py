@@ -89,15 +89,21 @@ class Node:
         pass
 
     def __str__(self):
+        # TODO:这个是不完善的，需要好好想想到底该怎么做，很可能有个to_string方法，可以支持多种不同的字符串生成方式，而这个只是调用其中的一种，可能会进行加工
+
         return self._title
 
     def set_parent(self, new_parent):
         """
-        只有通过设置父对象，才能够把这些节点组织成树状结构。
-        如果要删除父对象，可以将new_parent设为None
+        设置 Node 的父对象
+
+        Hint:
+            如果要删除父对象，可以将new_parent设为None
 
         Args: 
-            new_parent: 目标父对象
+            new_parent: 父对象
+        Notes:
+            通过设置父对象，让节点组织成树。
         """
         old_parent = self._parent_property
         if not (old_parent is new_parent):
@@ -117,6 +123,8 @@ class Node:
         当Node要设置父节点时，他不仅要自己更改自己的属性，也要更改父节点的Children，所以这个API是很必要的。
         要注意的是这个调用 API 时，需要先检查对应的节点的 parent 是否正确，如果不正确的话是不予添加的。
         所以添加 child 的唯一途径是用 set_parent 而不是用这个方法。
+
+        # TODO:这个API完全可以隐藏起来，不过隐藏之前先要搞清楚 Python 中如何调用private方法，最好是用个最被认可的方式来调用它。
 
         Args: 
             child_node: 需要添加的对象
