@@ -28,9 +28,11 @@ class Node:
         """
         构造方法
 
-        Args: 
+        Args:
             content: 节点本身的直辖内容，由于后续还可以向里面添加，所以实际上是用数组进行保存的，这个参数位于数组的index 0
             title: 节点的标题
+
+                #TODO:当title_level为0的时候，title实际上应该是文件名，这个会很特殊，后续要特别注意。
             title_level: 标题的层级，需要整数，范围是0~6
 
         """
@@ -42,6 +44,35 @@ class Node:
         self._title = title
 
         self.add_content(content)
+
+    def get_content(self):
+        """
+        返回 Node 对象包含的具体内容
+
+        Returns:
+            内容列表
+        Warns:
+            是复制品，不是对象中实际数据的引用，只能用来读取内容，修改对象的数据必须通过 API。
+        """
+        return self._content.copy()
+
+    def get_title(self):
+        """
+        返回 Node 对象的标题
+
+        Returns:
+            标题
+        """
+        return self._title
+
+    def get_title_level(self):
+        """
+        返回 Node 对象的标题级别
+
+        Returns:
+            标题级别
+        """
+        return self._title_level
 
     def add_content(self, content):
         """
