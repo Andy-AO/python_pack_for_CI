@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/andy-tree.iml" filepath="$PROJECT_DIR$/andy-tree.iml" />
+      <module fileurl="file://$PROJECT_DIR$/andy.mdspliter.tree.iml" filepath="$PROJECT_DIR$/andy.mdspliter.tree.iml" />
     </modules>
   </component>
 </project>

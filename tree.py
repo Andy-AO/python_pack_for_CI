@@ -1,8 +1,3 @@
-"""
-放置树状类数据结构以及相关内容。
-data包是其下游。
-
-"""
 from collections import OrderedDict
 
 
