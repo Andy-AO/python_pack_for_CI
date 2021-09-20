@@ -1,6 +1,6 @@
 import pytest
 
-from tree import Node
+from andyao.mdspliter.tree.node import Node
 
 
 class TestContent:

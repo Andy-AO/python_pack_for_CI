@@ -3,10 +3,10 @@
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-andy.mdspliter.tree 文档
+andyao.mdspliter.tree 文档
 =====================================
 
-.. automodule:: tree
+.. automodule:: andyao.mdspliter.tree.node
    :members:
 
 .. toctree::
